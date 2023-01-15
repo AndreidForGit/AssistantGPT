@@ -1,0 +1,21 @@
+{
+  "name": "cgptbot",
+  "version": "0.0.1",
+  "description": "Telegram assistant bot",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "Andreid",
+  "license": "ISC",
+  "dependencies": {
+    "api": "^5.0.6",
+    "dotenv": "^16.0.3",
+    "openai": "^3.1.0",
+    "telegraf": "^4.11.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
