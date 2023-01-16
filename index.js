@@ -1,29 +1,27 @@
-const sdk = require('api')('@writesonic/v2.2#4enbxztlcbti48j');
+// MODULES
 const { Telegraf } = require('telegraf');
+const { openaiResponse, chatSonicResponse } = require('./gpt');
 require('dotenv').config();
 
-const bot = new Telegraf(process.env.BOT_TOKEN);
-sdk.auth(process.env.AI_TOKEN);
+// API AUTHENTICATION
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+
+///////////////////////////////BOT LOGIC//////////////////////////////////////////////////
 
 bot.start((ctx) => {
     console.log('Message: ', ctx.message.text);
-    replyMessage(ctx, `wellcome ${ctx.from.first_name}!`)
+    if (ctx.from.id === parseInt(process.env.DEV)) {
+        ctx.reply(`wellcome ${ctx.from.first_name}!`)}
 })
 
+// OPENAI RESPONSES
 bot.on('text', ctx => {
-    sdk.chatsonic_V2BusinessContentChatsonic_post({
-        enable_google_results: 'true',
-        enable_memory: true,
-        input_text: ctx.message.text
-    }, {engine: 'premium'})
-    .then(({ data }) => {
-        console.log(ctx.message.text);
-        console.log(data);
-        if (ctx.from.id === parseInt(process.env.DEV)) {
-            return ctx.reply(data.message)
-        }
-    })
-    .catch(err => console.error(err));
+    openaiResponse(ctx)
 })
+
+// WRITTESONIC RESPONSES
+// bot.on('text', ctx => {
+    // chatSonicResponse(ctx)
+// })
 
 bot.launch()
