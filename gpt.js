@@ -1,7 +1,9 @@
+// modules
 const sdk = require('api')('@writesonic/v2.2#4enbxztlcbti48j');
 const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config();
 
+// authentication
 sdk.auth(process.env.WRITESONIC_KEY);
 
 const configuration = new Configuration({
@@ -9,6 +11,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
+// logic
 const openaiResponse =(async (ctx) => {
   if (ctx.from.id === parseInt(process.env.DEV)) {
     const response = await openai.createCompletion({
