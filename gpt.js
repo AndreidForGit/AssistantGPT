@@ -1,10 +1,10 @@
 // modules
-const sdk = require('api')('@writesonic/v2.2#4enbxztlcbti48j');
+// const sdk = require('api')('@writesonic/v2.2#4enbxztlcbti48j');
 const { Configuration, OpenAIApi } = require("openai");
 require('dotenv').config();
 
 // authentication
-sdk.auth(process.env.WRITESONIC_KEY);
+// sdk.auth(process.env.WRITESONIC_KEY);
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
