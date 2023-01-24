@@ -35,19 +35,18 @@ const openaiResponse =(async (ctx) => {
 
 
 const chatSonicResponse = (ctx) => {
-  sdk.chatsonic_V2BusinessContentChatsonic_post({
-      enable_google_results: 'true',
-      enable_memory: true,
-      input_text: ctx.message.text
-  }, {engine: 'premium'})
-  .then(({ data }) => {
-      console.log(ctx.message.text);
-      console.log(data);
-      if (ctx.from.id === parseInt(process.env.DEV)) {
-          return ctx.reply(data.message)
-      }
-  })
-  .catch(err => console.error(err));
+  if (ctx.from.id === parseInt(process.env.DEV)) {
+    sdk.chatsonic_V2BusinessContentChatsonic_post({
+        enable_google_results: 'true',
+        enable_memory: true,
+        input_text: ctx.message.text
+    }, {engine: 'premium'})
+    .then(({ data }) => {
+        console.log(ctx.message.text);
+        console.log(data);
+    })
+    .catch(err => console.error(err));
+  }
 }
 
 module.exports = {openaiResponse, chatSonicResponse}

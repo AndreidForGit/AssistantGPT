@@ -22,8 +22,9 @@ bot.on('text', ctx => {
 })
 
 // WRITTESONIC RESPONSES
-// bot.on('text', ctx => {
-    // chatSonicResponse(ctx)
-// })
+bot.command('sonic', ctx => {
+    console.log('Message: ', ctx.message.text)
+    chatSonicResponse(ctx)
+})
 
 bot.launch()
