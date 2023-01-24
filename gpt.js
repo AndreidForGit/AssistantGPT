@@ -13,20 +13,24 @@ const openai = new OpenAIApi(configuration);
 
 // logic
 const openaiResponse =(async (ctx) => {
-  if (ctx.from.id === parseInt(process.env.DEV)) {
-    const response = await openai.createCompletion({
-        model: "text-davinci-003",
-        prompt: ctx.message.text,
-        max_tokens: 1024,
-        temperature: 0.5,
-        n: 1,
-        stop: null
-    });
-    console.log(ctx.message.text);
-    console.log(response.data);
-    console.log(response.data);
-    return ctx.reply(response.data.choices[0].text)
-  } else {return ctx.reply("bad request")}
+  try {
+      if (ctx.from.id === parseInt(process.env.DEV)) {
+      const response = await openai.createCompletion({
+          model: "text-davinci-003",
+          prompt: ctx.message.text,
+          max_tokens: 1024,
+          temperature: 0.5,
+          n: 1,
+          stop: null
+      });
+      console.log(ctx.message.text);
+      console.log(response.data);
+      return ctx.reply(response.data.choices[0].text)
+    } else {return ctx.reply("bad request")}
+  } catch (err) {
+    console.log(err)
+    return ctx.reply(err)
+  }
 });
 
 
