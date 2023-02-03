@@ -35,15 +35,17 @@ const openaiResponse =(async (ctx) => {
 
 
 const chatSonicResponse = (ctx) => {
+  var message = ctx.message.text.replace('/sonic ', '')
   if (ctx.from.id === parseInt(process.env.DEV)) {
     sdk.chatsonic_V2BusinessContentChatsonic_post({
         enable_google_results: 'true',
         enable_memory: true,
-        input_text: ctx.message.text
+        input_text: message
     }, {engine: 'premium'})
     .then(({ data }) => {
-        console.log(ctx.message.text);
+        console.log(message);
         console.log(data);
+        return ctx.reply(data.message + '\nBy: Sonic')
     })
     .catch(err => console.error(err));
   }
