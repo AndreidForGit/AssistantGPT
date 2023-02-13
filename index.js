@@ -1,18 +1,18 @@
 // MODULES
 const { Telegraf } = require('telegraf');
 const { openaiResponse, chatSonicResponse } = require('./gpt');
-require('dotenv').config();
+const {envData} = require('./env')
 
 // API AUTHENTICATION
-const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+const bot = new Telegraf(envData.telegramToken);
 
 /////////BOT LOGIC////////
 bot.start((ctx) => {
     console.log('Message: ', ctx.message.text);
-    if (ctx.from.id === parseInt(process.env.DEV)) {
+    console.log('Message: ', envData);
+    if (envData.dev.UsersId.includes(ctx.from.id) || envData.users.UsersId.includes(ctx.from.id)) {
         ctx.reply(`wellcome ${ctx.from.first_name}! \nThis is a playgroud for a chatbot like ChatGPT, `+
-        'you can use OpenAI api by just writting anything.\nYou can also use /sonic to interact with '+
-        'WritteSonic api, witch is based on the same GPT-3 model.')
+        'you can use OpenAI api by just writting anything.')
     } else {
         ctx.reply(`wellcome ${ctx.from.first_name}!, Tu id es: ${ctx.from.id}`)
     }
