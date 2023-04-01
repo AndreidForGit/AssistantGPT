@@ -41,7 +41,7 @@ const openaiResponse =(async (ctx) => {
         });
         console.log(ctx.message.text);
         console.log(response.data);
-        return ctx.reply(response.data.choices[0].text + '\n Hola puta')
+        return ctx.reply(response.data.choices[0].text)
     } else {return ctx.reply("bad request")}
   } catch (err) {
     console.log(err)
